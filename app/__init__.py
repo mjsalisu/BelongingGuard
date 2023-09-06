@@ -27,4 +27,4 @@ from app.user.controller import bp as user_bp
 app.register_blueprint(user_bp)
 
 # Error handlers
-from .error_handlers import *
+# from .error_handlers import *

@@ -21,11 +21,10 @@ COPY . .
 ENV DATABASE_URI='sqlite:////tmp/keep_safe.db'
 
 # Upgrade databases using Flask-Migrate
-RUN python manage.py db upgrade
 RUN flask db upgrade
-
-# Run the application using Gunicorn instead of the manage.py file
-CMD gunicorn -b :80 manage:app && supervisord -c supervisord.conf
 
 # Expose port 80
 EXPOSE 80
+
+# Run the application using Gunicorn instead of the manage.py file
+CMD supervisord -c supervisord.conf
