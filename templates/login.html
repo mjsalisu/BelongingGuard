@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MSSN BUK</title>
     <link
-      rel="shortcut icon"
-      type="image/png"
-      href="../assets/images/logos/favicon.png"
+      rel="icon"
+      href="/static/images/logos/favicon.png"
+      type="image/x-icon"
     />
-    <link rel="stylesheet" href="../assets/css/styles.min.css" />
+    <link rel="stylesheet" href="/static/css/styles.min.css" />
   </head>
 
   <body>
@@ -36,27 +36,16 @@
                     class="text-nowrap logo-img text-center d-block py-3 w-100"
                   >
                     <img
-                      src="../assets/images/logos/dark-logo.svg"
+                      src="#/static/images/logos/dark-logo.svg"
                       width="180"
-                      alt=""
+                      alt="BelongingGuard"
                     />
                   </a>
-                  <p class="text-center">Your Social Campaigns</p>
+                  <p class="text-center">Your safe belonging keeper</p>
                   <form>
                     <div class="mb-3">
-                      <label for="exampleInputtext1" class="form-label"
-                        >Name</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="exampleInputtext1"
-                        aria-describedby="textHelp"
-                      />
-                    </div>
-                    <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label"
-                        >Email Address</label
+                        >Username</label
                       >
                       <input
                         type="email"
@@ -75,17 +64,41 @@
                         id="exampleInputPassword1"
                       />
                     </div>
+                    <div
+                      class="d-flex align-items-center justify-content-between mb-4"
+                    >
+                      <div class="form-check">
+                        <input
+                          class="form-check-input primary"
+                          type="checkbox"
+                          value=""
+                          id="flexCheckChecked"
+                          checked
+                        />
+                        <label
+                          class="form-check-label text-dark"
+                          for="flexCheckChecked"
+                        >
+                          Remeber this Device
+                        </label>
+                      </div>
+                      <a class="text-primary fw-bold" href="./index.html"
+                        >Forgot Password ?</a
+                      >
+                    </div>
                     <a
                       href="./index.html"
                       class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2"
-                      >Sign Up</a
+                      >Sign In</a
                     >
                     <div
                       class="d-flex align-items-center justify-content-center"
                     >
-                      <p class="fs-4 mb-0 fw-bold">Already have an Account?</p>
-                      <a class="text-primary fw-bold ms-2" href="./login.html"
-                        >Sign In</a
+                      <p class="fs-4 mb-0 fw-bold">New to BelongingGuard?</p>
+                      <a
+                        class="text-primary fw-bold ms-2"
+                        href="./register.html"
+                        >Create an account</a
                       >
                     </div>
                   </form>
@@ -96,7 +109,7 @@
         </div>
       </div>
     </div>
-    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/static/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

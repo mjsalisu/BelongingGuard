@@ -2,13 +2,13 @@ import Graphics from './Graphics'
 import Exports from './Exports'
 import Scales from './Scales'
 import Utils from './../utils/Utils'
-import icoPan from './../assets/ico-pan-hand.svg'
-import icoZoom from './../assets/ico-zoom-in.svg'
-import icoReset from './../assets/ico-home.svg'
-import icoZoomIn from './../assets/ico-plus.svg'
-import icoZoomOut from './../assets/ico-minus.svg'
-import icoSelect from './../assets/ico-select.svg'
-import icoMenu from './../assets/ico-menu.svg'
+import icoPan from './/static/ico-pan-hand.svg'
+import icoZoom from './/static/ico-zoom-in.svg'
+import icoReset from './/static/ico-home.svg'
+import icoZoomIn from './/static/ico-plus.svg'
+import icoZoomOut from './/static/ico-minus.svg'
+import icoSelect from './/static/ico-select.svg'
+import icoMenu from './/static/ico-menu.svg'
 
 /**
  * ApexCharts Toolbar Class for creating toolbar in axis based charts.
@@ -86,8 +86,8 @@ export default class Toolbar {
             typeof this.t[z] === 'string'
               ? this.t[z]
               : z === 'zoom'
-              ? icoZoom
-              : icoSelect,
+                ? icoZoom
+                : icoSelect,
           title: this.localeValues[
             z === 'zoom' ? 'selectionZoom' : 'selection'
           ],

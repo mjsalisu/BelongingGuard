@@ -1,4 +1,4 @@
-from flask import Blueprint, g, jsonify, request
+from flask import Blueprint, g, jsonify, request, render_template
 
 from app.user.model import User
 from app.user.schema import UserSchema
@@ -46,8 +46,6 @@ def register():
 @bp.get('/users')
 def users():
     user = User.get_users()
-    
     if user is None:
         return jsonify({'message': 'Users not found'}), 404
-    
     return jsonify({'user': UserSchema(many=True).dump(user)}), 200
