@@ -42,3 +42,12 @@ def register():
     if user is not None:
         return jsonify({'message': 'User created'}), 201
     return jsonify({'message': 'User not created'}), 400
+
+@bp.get('/users')
+def users():
+    user = User.get_users()
+    
+    if user is None:
+        return jsonify({'message': 'Users not found'}), 404
+    
+    return jsonify({'user': UserSchema(many=True).dump(user)}), 200

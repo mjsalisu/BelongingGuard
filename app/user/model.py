@@ -50,7 +50,11 @@ class User(db.Model):
         self.password = new_password
         self.hash_password()
         self.update()
-    
+
+    @classmethod
+    def get_users(cls):
+        return cls.query.filter_by().all()
+        
     @classmethod
     def get_by_id(cls, id):
         return cls.query.filter_by(id=id).first()
