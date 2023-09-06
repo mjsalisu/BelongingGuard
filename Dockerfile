@@ -6,11 +6,9 @@ RUN apt-get update && apt-get install -y supervisor bash
 
 RUN mkdir app
 
-# Removed cd app as it is unnecessary 
-
 WORKDIR /app
 
-# Copy requirements.txt separately before copying the application code
+# Copy requirements.txt separately
 COPY requirements.txt .
 
 # Install application dependencies
@@ -20,9 +18,8 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # Uncomment and add environment variables here
-# ARG DATABASE_URI
-# ENV DATABASE_URI=${DATABASE_URI}
-# Added comment for clarity
+ARG DATABASE_URI
+ENV DATABASE_URI='sqlite:////tmp/test.db'
 
 # Run Flask database upgrade
 RUN flask db upgrade
@@ -35,4 +32,3 @@ EXPOSE 80
 
 # Start supervisor with the specified configuration file
 CMD bash -c "supervisord -c supervisord.conf" 
-# Updated the command to use bash and added a comment for clarity
