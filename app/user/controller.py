@@ -33,7 +33,7 @@ def reset_password():
     return jsonify({'message': 'Password updated successfully'}), 200
     
 
-@bp.route('/register')
+@bp.get('/register')
 def register():
     # data = request.json
     # user = User.get_by_email(data.get('email'))
@@ -45,8 +45,8 @@ def register():
     # return jsonify({'message': 'User not created'}), 400
     return render_template('register.html')
 
-
 @bp.get('/users')
+@auth_required()
 def users():
     user = User.get_users()
     if user is None:
