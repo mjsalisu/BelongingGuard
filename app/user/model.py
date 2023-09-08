@@ -4,6 +4,7 @@ from app import app, db, secret
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    fullname = db.Column(db.String, nullable=True)
     email = db.Column(db.String, unique=True, nullable=True)
     password = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.now())
@@ -64,8 +65,8 @@ class User(db.Model):
         return User.query.filter(User.email==email).first()
     
     @classmethod
-    def create(cls, email, password, role):
-        user = cls(email=email, password=password, role=role)
+    def create(cls, fullname, email, password, role):
+        user = cls(fullname=fullname, email=email, password=password, role=role)
         user.hash_password()
         user.save()
         return user

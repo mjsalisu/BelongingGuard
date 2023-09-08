@@ -3,23 +3,47 @@ from flask import Blueprint, g, jsonify, request, render_template
 from app.user.model import User
 from app.user.schema import UserSchema
 from app.route_guard import auth_required
-bp = Blueprint('user', __name__, template_folder='../templates', static_url_path='../static')
+from app.validation import is_valid_email, is_valid_password, is_valid_text
+bp = Blueprint('user', __name__)
+isError = True
 
-@bp.route('/login')
+@bp.route('/login', methods=['GET', 'POST'])
 def login():
-    # data = request.json
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        
+        user = User.get_by_email(email)
+        if user is None:
+            return render_template('login.html', result_message='User not found', isError=isError), 404
+        if not user.check_password(password):
+            return render_template('login.html', result_message='Wrong password', isError=isError), 401
+
+        token = user.generate_token()
+        result_message = jsonify({'token': token, 'user': UserSchema().dump(user)}), 200
+        return render_template('login.html', result_message=result_message), 401
+    else:
+        return render_template('login.html')
     
-    # email = data.get('email')
-    # user = User.get_by_email(email)
-    
-    # if user is None:
-    #     return jsonify({'message': 'User not found'}), 404
-    # if not user.check_password(data.get('password')):
-    #     return jsonify({'message': 'Wrong password'}), 401
-    # # generate token
-    # token = user.generate_token()
-    # return jsonify({'token': token, 'user': UserSchema().dump(user)}), 200
-    return render_template('login.html')
+@bp.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        fullname = request.form.get('fullname')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        role = 'user'
+
+        if is_valid_text(fullname) and is_valid_email(email) and is_valid_password(password):
+            user = User.get_by_email(email)
+            if user is not None:
+                return render_template('register.html', result_message='User already exists', isError=isError), 400
+            user = User.create(fullname, email, password, role)
+            if user is not None:
+                return render_template('register.html', result_message='User created'), 201
+        else:
+            return render_template('register.html', result_message='One or more fields are invalid', isError=isError), 400
+    else:
+        return render_template('register.html')
 
 @bp.patch('/reset-password')
 @auth_required()
@@ -31,22 +55,9 @@ def reset_password():
         return jsonify({'message': 'Password must be at least 6 characters'}), 400
     g.user.reset_password(new_password)
     return jsonify({'message': 'Password updated successfully'}), 200
-    
-
-@bp.get('/register')
-def register():
-    # data = request.json
-    # user = User.get_by_email(data.get('email'))
-    # if user is not None:
-    #     return jsonify({'message': 'User already exists'}), 400
-    # user = User.create(data.get('email'), data.get('password'), data.get('role'))
-    # if user is not None:
-    #     return jsonify({'message': 'User created'}), 201
-    # return jsonify({'message': 'User not created'}), 400
-    return render_template('register.html')
 
 @bp.get('/users')
-@auth_required()
+# @auth_required()
 def users():
     user = User.get_users()
     if user is None:

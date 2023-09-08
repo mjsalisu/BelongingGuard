@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MSSN BUK</title>
+    <title>Login | MSSN BUK</title>
     <link
       rel="icon"
       href="/static/images/logos/favicon.png"
@@ -41,50 +41,31 @@
                     />
                   </div>
                   <p class="text-center">Your safe belonging keeper</p>
-                  <form>
+                  <form action="/login" method="POST">
                     <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label"
-                        >Username</label
-                      >
+                      <label class="form-label">Email address</label>
                       <input
-                        type="text"
+                        type="email"
                         class="form-control"
-                        id="exampleInputEmail1"
-                        aria-describedby="emailHelp"
+                        name="username"
+                        placeholder="Enter your email address"
                       />
                     </div>
                     <div class="mb-4">
-                      <label for="exampleInputPassword1" class="form-label"
-                        >Password</label
-                      >
+                      <label class="form-label">Password</label>
                       <input
                         type="password"
                         class="form-control"
-                        id="exampleInputPassword1"
+                        name="password"
+                        placeholder="Enter your password"
                       />
                     </div>
-                    <div
-                      class="d-flex align-items-center justify-content-between mb-4"
+                    <h5
+                      class="{% if isError %}text-danger{% else %}text-primary{% endif %} text-center mb-4"
+                      id="message"
                     >
-                      <div class="form-check">
-                        <input
-                          class="form-check-input primary"
-                          type="checkbox"
-                          value=""
-                          id="flexCheckChecked"
-                          checked
-                        />
-                        <label
-                          class="form-check-label text-dark"
-                          for="flexCheckChecked"
-                        >
-                          Remeber this Device
-                        </label>
-                      </div>
-                      <!-- <a class="text-primary fw-bold" href="#">
-                        Forgot Password ?
-                      </a> -->
-                    </div>
+                      {{ result_message }}
+                    </h5>
                     <button
                       class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2"
                     >
@@ -93,7 +74,9 @@
                     <div
                       class="d-flex align-items-center justify-content-center"
                     >
-                      <p class="fs-4 mb-0 fw-bold">New to BelongingGuard?</p>
+                      <p class="fs-4 mb-0 fw-bold">
+                        New to <b>BelongingGuard</b>?
+                      </p>
                       <a class="text-primary fw-bold ms-2" href="./register"
                         >Create an account</a
                       >
@@ -108,5 +91,6 @@
     </div>
     <script src="/static/libs/jquery/dist/jquery.min.js"></script>
     <script src="/static/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/app.min.js"></script>
   </body>
 </html>
