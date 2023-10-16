@@ -3,7 +3,6 @@ from flask import Blueprint, g, jsonify, request, render_template
 from app.user.model import User
 from app.user.schema import UserSchema
 from app.route_guard import auth_required
-from app.validation import is_valid_email
 bp = Blueprint('user', __name__)
 isError = True
 
@@ -15,9 +14,11 @@ def login():
         
         user = User.get_by_email(email)
         if user is None:
-            return render_template('login.html', result_message='User not found', isError=isError), 404
+            mgs = 'User not found'
+            return render_template('login.html', result_message=mgs, isError=isError), 404
         if not user.check_password(password):
-            return render_template('login.html', result_message='Wrong password', isError=isError), 401
+            msg = 'Wrong password'
+            return render_template('login.html', result_message=mgs, isError=isError), 401
 
         token = user.generate_token()
         result_message = jsonify({'token': token, 'user': UserSchema().dump(user)}), 200
