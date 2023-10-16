@@ -2,6 +2,8 @@ from app import db
 
 class Itemmovement(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    trackingID = db.Column(db.Integer, db.ForeignKey('Itemreg.id'))
+    item = db.relationship("Itemreg")
     created_at = db.Column(db.DateTime, default=db.func.now())
     updated_at = db.Column(db.DateTime, default=db.func.now())
     is_deleted = db.Column(db.Boolean, default=False)
