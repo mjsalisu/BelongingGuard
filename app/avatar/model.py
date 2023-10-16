@@ -2,6 +2,9 @@ from app import db
 
 class Avatar(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    userID = db.Column(db.Integer, db.ForeignKey('User.id'))
+    user = db.relationship("User")
+    avatarPath = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=db.func.now())
     updated_at = db.Column(db.DateTime, default=db.func.now())
     is_deleted = db.Column(db.Boolean, default=False)

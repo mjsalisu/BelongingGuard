@@ -1,4 +1,6 @@
 from flask import Blueprint
+from app.logs.model import Logs
+from app.logs.schema import LogsSchema
 from app.route_guard import auth_required
 
 from app.logs.model import *
@@ -9,7 +11,7 @@ bp = Blueprint('logs', __name__)
 @bp.post('/logs')
 @auth_required()
 def create_logs():
-    logs = Logs.create()
+    logs = LogsSchema.create()
     return LogsSchema().dump(logs), 201
 
 @bp.get('/logs/<int:id>')
