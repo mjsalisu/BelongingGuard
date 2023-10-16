@@ -1,4 +1,6 @@
 from flask import Blueprint
+from app.avatar.model import Avatar
+from app.avatar.schema import AvatarSchema
 from app.route_guard import auth_required
 
 from app.avatar.model import *

@@ -1,4 +1,6 @@
 from flask import Blueprint
+from app.idproof.model import Idproof
+from app.idproof.schema import IdproofSchema
 from app.route_guard import auth_required
 
 from app.idproof.model import *

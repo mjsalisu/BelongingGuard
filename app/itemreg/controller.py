@@ -1,4 +1,6 @@
 from flask import Blueprint
+from app.itemreg.model import Itemreg
+from app.itemreg.schema import ItemregSchema
 from app.route_guard import auth_required
 
 from app.itemreg.model import *
