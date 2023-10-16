@@ -3,7 +3,7 @@ from flask import Blueprint, g, jsonify, request, render_template
 from app.user.model import User
 from app.user.schema import UserSchema
 from app.route_guard import auth_required
-from app.validation import is_valid_email, is_valid_password, is_valid_text
+from app.validation import is_valid_email
 bp = Blueprint('user', __name__)
 isError = True
 
@@ -28,31 +28,35 @@ def login():
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        fullname = request.form.get('fullname')
-        email = request.form.get('email')
+        fullname = request.form.get('fullname') 
+        regNumber = request.form.get('regNumber')
+        phoneNumber = request.form.get('phoneNumber') 
+        emailAddress = request.form.get('emailAddress')
         password = request.form.get('password')
-        role = 'user'
 
-        if is_valid_text(fullname) and is_valid_email(email) and is_valid_password(password):
-            user = User.get_by_email(email)
+        if fullname and regNumber and phoneNumber and emailAddress and password:
+            user = User.get_by_email(emailAddress)
             if user is not None:
-                return render_template('register.html', result_message='User already exists', isError=isError), 400
-            user = User.create(fullname, email, password, role)
+                msg = 'A user is already registered with the same phone number, or email address.'
+                return render_template('register.html', result_message=msg, isError=isError), 400
+            user = User.create(fullname, regNumber, phoneNumber, emailAddress, password)
             if user is not None:
-                return render_template('register.html', result_message='User created'), 201
+                msg = 'User created successfully, please login'
+                return render_template('login.html', result_message=msg, isError=isError), 201
         else:
-            return render_template('register.html', result_message='One or more fields are invalid', isError=isError), 400
+            msg = 'One or more fields are invalid'
+            return render_template('register.html', result_message=msg, isError=isError), 400
     else:
         return render_template('register.html')
-
+    
 @bp.patch('/reset-password')
 @auth_required()
 def reset_password():
     new_password = request.json.get('password')
     if not new_password:
         return jsonify({'message': 'Password is required'}), 400
-    elif len(new_password) < 6:
-        return jsonify({'message': 'Password must be at least 6 characters'}), 400
+    elif len(new_password) < 4:
+        return jsonify({'message': 'Password must be at least 4 to 8 characters long'}), 400
     g.user.reset_password(new_password)
     return jsonify({'message': 'Password updated successfully'}), 200
 
