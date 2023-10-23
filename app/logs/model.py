@@ -31,7 +31,7 @@ class Logs(db.Model):
         return cls.query.filter_by(is_deleted=False).all()
     
     @classmethod
-    def create(cls):
-        logs = cls()
+    def create(cls, userID, action):
+        logs = cls(userID=userID, action=action)
         logs.save()
         return logs
