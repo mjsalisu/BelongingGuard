@@ -222,7 +222,7 @@
                         <input
                           class="form-control"
                           type="text"
-                          name="regNumber"
+                          name="itemName"
                           placeholder="Enter item name"
                         />
                       </div>
@@ -233,6 +233,7 @@
                         <input
                           class="form-control"
                           type="text"
+                          name="itemType"
                           placeholder="Enter item type such as phone, laptop, etc."
                         />
                       </div>
@@ -245,6 +246,7 @@
                         <input
                           class="form-control"
                           type="number"
+                          name="itemQuantity"
                           min="1"
                           placeholder="Enter quantity"
                         />
@@ -253,7 +255,12 @@
                     <div class="col-sm">
                       <div class="mb-3">
                         <label class="form-label">Image</label>
-                        <input class="form-control" type="file" />
+                        <input
+                          class="form-control"
+                          type="file"
+                          name="itemImage"
+                          accept="image/*"
+                        />
                       </div>
                     </div>
                   </div>
@@ -264,6 +271,7 @@
                         <textarea
                           class="form-control"
                           rows="4"
+                          name="itemDescription"
                           placeholder="Enter item description"
                         ></textarea>
                         <div class="form-text" id="hint">
