@@ -29,7 +29,7 @@
             <a href="./" class="text-nowrap logo-img p-3">
               <img
                 src="/static/images/logos/mssn.png"
-                width="150"
+                width="80"
                 alt="MSSN Logo"
               />
             </a>
@@ -213,107 +213,109 @@
               <h5 class="card-title fw-semibold mb-4">
                 Item Check-Out and Collection
               </h5>
-              <form>
-                <div class="container">
-                  <div class="row">
-                    <div class="col-sm">
-                      <div class="mb-3">
-                        <input
-                          class="form-control"
-                          type="text"
-                          placeholder="Enter item tracking id"
-                        />
-                        <div class="form-text" id="hint"></div>
-                      </div>
-                    </div>
-                    <div class="col-sm">
-                      <div class="mb-3">
-                        <button type="submit" class="btn btn-primary">
-                          Search for item
-                        </button>
-                      </div>
-                    </div>
-                    <div class="col-sm">
-                      <div class="mb-3">
-                        <input
-                          class="form-control"
-                          type="text"
-                          placeholder="checkInBy"
-                          value="checkOutBy"
-                          readonly
-                        />
-                      </div>
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm">
+                    <div class="mb-3">
+                      <input
+                        class="form-control"
+                        type="text"
+                        placeholder="Enter item tracking id"
+                      />
+                      <div class="form-text" id="hint"></div>
                     </div>
                   </div>
-
-                  <hr />
-                  <div class="row">
-                    <div class="col-sm">
-                      <div class="mb-3">
-                        <label class="form-label">Item name</label>
-                        <p>{{itemName}}</p>
-                      </div>
-                    </div>
-                    <div class="col-sm">
-                      <div class="mb-3">
-                        <label class="form-label">Item type</label>
-                        <p>{{itemType}}</p>
-                      </div>
-                    </div>
-                    <div class="col-sm">
-                      <div class="mb-3">
-                        <label class="form-label">Quantity</label>
-                        <p>{{itemQuantitye}}</p>
-                      </div>
+                  <div class="col-sm">
+                    <div class="mb-3">
+                      <button onclick="showSubPage()" class="btn btn-primary">
+                        Search for item
+                      </button>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-sm">
-                      <div class="mb-3">
-                        <label class="form-label">Check-in date</label>
-                        <p>{{checkInDate}}</p>
-                      </div>
-                    </div>
-                    <div class="col-sm">
-                      <div class="mb-3">
-                        <label class="form-label">Check-in by</label>
-                        <p>{{checkInBy}}</p>
-                      </div>
-                    </div>
-                    <div class="col-sm">
-                      <div class="mb-3">
-                        <label class="form-label">Status</label>
-                        <p>{{checkInStatus }}</p>
-                      </div>
-                    </div>
+                  <div class="col-sm">
+                    <div class="mb-3"></div>
                   </div>
-                  <div class="row">
-                    <div class="col-sm">
-                      <div class="mb-3">
-                        <label class="form-label">Check-in note</label>
-                        <p>{{checkInNote }}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <hr />
-                  <div class="row">
-                    <div class="col-sm">
-                      <div class="mb-3">
-                        <label class="form-label">Check-out note </label>
-                        <textarea
-                          class="form-control"
-                          rows="3"
-                          placeholder="Enter check-out note"
-                        ></textarea>
-                      </div>
-                    </div>
-                  </div>
-                  <button type="submit" class="btn btn-success m-2">
-                    Checkout
-                  </button>
-                  <button type="submit" class="btn btn-light">Cancel</button>
                 </div>
-              </form>
+
+                <hr />
+
+                <form>
+                  <div id="subPage">
+                    <div class="row">
+                      <div class="col-sm">
+                        <div class="mb-3">
+                          <label class="form-label">Item name</label>
+                          <p>{{itemName}}</p>
+                        </div>
+                      </div>
+                      <div class="col-sm">
+                        <div class="mb-3">
+                          <label class="form-label">Item type</label>
+                          <p>{{itemType}}</p>
+                        </div>
+                      </div>
+                      <div class="col-sm">
+                        <div class="mb-3">
+                          <label class="form-label">Quantity</label>
+                          <p>{{itemQuantitye}}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm">
+                        <div class="mb-3">
+                          <label class="form-label">Check-in date</label>
+                          <p>{{checkInDate}}</p>
+                        </div>
+                      </div>
+                      <div class="col-sm">
+                        <div class="mb-3">
+                          <label class="form-label">Check-in by</label>
+                          <p>{{checkInBy}}</p>
+                        </div>
+                      </div>
+                      <div class="col-sm">
+                        <div class="mb-3">
+                          <label class="form-label">Status</label>
+                          <p>{{checkInStatus }}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm">
+                        <div class="mb-3">
+                          <label class="form-label">Check-in note</label>
+                          <p>{{checkInNote }}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <input
+                      class="form-control"
+                      type="hidden"
+                      placeholder="checkInBy"
+                      value="checkOutBy"
+                      readonly
+                    />
+                    <hr />
+                    <div class="row">
+                      <div class="col-sm">
+                        <div class="mb-3">
+                          <label class="form-label">Check-out note </label>
+                          <textarea
+                            class="form-control"
+                            rows="3"
+                            placeholder="Enter check-out note"
+                          ></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-success m-2">
+                      Checkout
+                    </button>
+                    <button type="submit" class="btn btn-light">Cancel</button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
