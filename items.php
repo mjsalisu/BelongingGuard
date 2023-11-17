@@ -32,7 +32,14 @@ checklogin();
         <div class="card">
           <?php
           $id = $_SESSION["token"];
-          $sql = "SELECT * FROM `item_tbl` WHERE userId = '$id'";
+          $role = $_SESSION["role"];
+
+          // user see his/her item ONLY while admin everthing
+          if ($role == "0") {
+            $sql = "SELECT * FROM `item_tbl` WHERE regById = '$id'";
+          } else {
+            $sql = "SELECT * FROM `item_tbl`";
+          }
           $result = mysqli_query($con, $sql);
           $num = mysqli_num_rows($result);
           ?>
@@ -60,7 +67,9 @@ checklogin();
 
                     <?php
                     if ($num <= 0) {
-                      echo "Data not fond";
+                      echo "<tr><td colspan='6' class='text-center text-muted py-4 h3'>
+                      No item has been registered yet
+                      </td></tr>";
                     } else {
                       $i = 1;
                       while ($row = mysqli_fetch_assoc($result)) {

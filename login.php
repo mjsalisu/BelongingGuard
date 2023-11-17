@@ -8,7 +8,7 @@ error_reporting(0);
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Register | Belonging Guard MSSN BUK</title>
+  <title>Login | Belonging Guard MSSN BUK</title>
   <link rel="icon" href="static/images/logos/mssn.png" type="image/x-icon" />
   <link rel="stylesheet" href="static/css/styles.min.css" />
 </head>
@@ -22,26 +22,19 @@ error_reporting(0);
           <div class="col-12 col-md-6 col-lg-5 col-xxl-4">
             <div class="card mb-0">
               <div class="card-body">
-                <h4 class="text-center mb-4">
-                  Join us to safeguard your belongings!
+                <h4 class="text-center mb-5">
+                  Log in and ensure your valuables are protected
                 </h4>
                 <form action="./api/auth.php" method="post">
                   <div class="mb-3">
-                    <label class="form-label">Full name</label>
-                    <input type="text" class="form-control" name="fullname" placeholder="Enter your full name"  required/>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label">Email address</label>
-                    <input type="email" class="form-control" name="emailAddress" placeholder="Enter your email address" required/>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label">Phone number</label>
-                    <input type="text" class="form-control" name="phoneNumber" placeholder="Enter your phone number" required />
+                    <label class="form-label">Email address or phone number</label>
+                    <input type="text" class="form-control" name="username" placeholder="Enter your email address or phone number"  required/>
                   </div>
                   <div class="mb-4">
                     <label class="form-label">Password</label>
-                    <input type="password" class="form-control" name="password" placeholder="choose a password (4 to 8 characters)" required />
+                    <input type="password" class="form-control" name="password" placeholder="Enter your password" required />
                   </div>
+                  <!-- {{ result_message }} -->
                   <?php
                   if (isset($_SESSION["msg"])) {
                   ?>
@@ -53,12 +46,14 @@ error_reporting(0);
                   }
                   unset($_SESSION["msg"]);
                   ?>
-                  <button class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2" name="register">
-                    Sign Up
+                  <button class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2" name="login">
+                    Sign In
                   </button>
                   <div class="d-flex align-items-center justify-content-center">
-                    <p class="fs-4 mb-0">Already have an account?</p>
-                    <a class="text-primary fw-bold ms-2" href="./login.php"><b>Sign in</b></a>
+                    <p class="fs-4 mb-0 fw-bold">
+                      New to BelongingGuard?
+                    </p>
+                    <a class="text-primary fw-bold ms-2" href="./register.php"><b>Create an account</b></a>
                   </div>
                 </form>
               </div>

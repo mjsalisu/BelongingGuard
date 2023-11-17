@@ -54,10 +54,10 @@ INSERT INTO `item_tbl` (`id`, `userId`, `trackId`, `itemName`, `itemType`, `item
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_tbl`
+-- Table structure for table `user`
 --
 
-CREATE TABLE `user_tbl` (
+CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
   `email` varchar(30) NOT NULL,
@@ -71,10 +71,10 @@ CREATE TABLE `user_tbl` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `user_tbl`
+-- Dumping data for table `user`
 --
 
-INSERT INTO `user_tbl` (`id`, `name`, `email`, `regNo`, `faculty`, `department`, `phone`, `password`, `role`, `created_at`) VALUES
+INSERT INTO `user` (`id`, `name`, `email`, `regNo`, `faculty`, `department`, `phone`, `password`, `role`, `created_at`) VALUES
 (1, 'Yunus Isah', 'admin@gmail.com', NULL, NULL, NULL, '09033248408', '12345', 1, '2023-11-16 17:06:20'),
 (2, 'Yunus Isah', 'yunusisah123@gmail.com', 'CST/17/IFT/00029', 'Faculty Of Computing', 'Information Technology', '09033248408', '1234', 0, '2023-11-16 22:56:36');
 
@@ -89,9 +89,9 @@ ALTER TABLE `item_tbl`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_tbl`
+-- Indexes for table `user`
 --
-ALTER TABLE `user_tbl`
+ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -105,9 +105,9 @@ ALTER TABLE `item_tbl`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `user_tbl`
+-- AUTO_INCREMENT for table `user`
 --
-ALTER TABLE `user_tbl`
+ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 

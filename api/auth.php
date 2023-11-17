@@ -12,17 +12,17 @@ if (isset($_POST["login"])) {
     $username = mysqli_real_escape_string($con, validate($_POST["username"]));
     $password = (mysqli_real_escape_string($con, validate($_POST["password"])));
 
-    $sql = "SELECT * FROM `user_tbl` WHERE (email = '$username' OR phone = '$username') AND password = '$password';";
+    $sql = "SELECT * FROM `user` WHERE (email = '$username' OR phone = '$username') AND password = '$password';";
     $res = mysqli_query($con, $sql);
     if (mysqli_num_rows($res) > 0) {
         $userData = mysqli_fetch_assoc($res);
         $_SESSION["token"] = $userData["id"];
         $_SESSION["role"] = $userData["role"];
-        header("location: ../dashboard.php");
+        header("location: ../index.php");
     } else {
         $_SESSION["msg"] = '
         Invalid Username Or Password.';
-        header("location: ../index.php");
+        header("location: ../login.php");
         // echo 'Error';
     }
 }
@@ -34,7 +34,7 @@ if (isset($_POST["register"])) {
     $emailAddress = (mysqli_real_escape_string($con, validate($_POST["emailAddress"])));
     $phoneNumber = (mysqli_real_escape_string($con, validate($_POST["phoneNumber"])));
     $password = (mysqli_real_escape_string($con, validate($_POST["password"])));
-    $sql = "INSERT INTO `user_tbl`(`name`, `email`, `phone`, `password`, `role`) VALUES ('$fullname','$emailAddress','$phoneNumber','$password','0')";
+    $sql = "INSERT INTO `user`(`name`, `email`, `phone`, `password`, `role`) VALUES ('$fullname','$emailAddress','$phoneNumber','$password','0')";
     $res = mysqli_query($con, $sql);
     if ($res) {
         $_SESSION["msg"] = '

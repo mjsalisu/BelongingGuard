@@ -45,9 +45,7 @@ checklogin();
             <h5 class="card-title fw-semibold mb-4">
               Register your valuable item
             </h5>
-            <?php $id = $_SESSION["token"]; ?>
             <form action="./api/item.php" method="post" enctype="multipart/form-data">
-              <input type="hidden" name="id" value="<?php echo $id; ?>">
               <div class="container">
                 <div class="row">
                   <div class="col-sm">

@@ -1,6 +1,9 @@
 <?php
-include("./api/auth.php");
 error_reporting(0);
+include("./function/checkLogin.php");
+include("./api/dbcon.php");
+checklogin();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +11,7 @@ error_reporting(0);
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login | Belonging Guard MSSN BUK</title>
+  <title>Dashboard | Belonging Guard MSSN BUK</title>
   <link rel="icon" href="static/images/logos/mssn.png" type="image/x-icon" />
   <link rel="stylesheet" href="static/css/styles.min.css" />
 </head>
@@ -16,56 +19,125 @@ error_reporting(0);
 <body>
   <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
-    <div class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
-      <div class="d-flex align-items-center justify-content-center w-100">
-        <div class="row justify-content-center w-100">
-          <div class="col-12 col-md-6 col-lg-5 col-xxl-4">
-            <div class="card mb-0">
-              <div class="card-body">
-                <h4 class="text-center mb-5">
-                  Log in and ensure your valuables are protected
-                </h4>
-                <form action="./api/auth.php" method="post">
-                  <div class="mb-3">
-                    <label class="form-label">Email address or phone number</label>
-                    <input type="text" class="form-control" name="username" placeholder="Enter your email address or phone number"  required/>
-                  </div>
-                  <div class="mb-4">
-                    <label class="form-label">Password</label>
-                    <input type="password" class="form-control" name="password" placeholder="Enter your password" required />
-                  </div>
-                  <!-- {{ result_message }} -->
-                  <?php
-                  if (isset($_SESSION["msg"])) {
-                  ?>
-                    <div class="alert alert-info {% if isError %}alert-danger{% else %}alert-success{% endif %} text-center mb-4" role="alert" id="message">
-                      <?php echo $_SESSION["msg"]; ?>
-                    </div>
+    <!-- Sidebar Start -->
+    <?php include("./include/sidebar.php"); ?>
+    <!--  Sidebar End -->
+    <!--  Main wrapper -->
+    <div class="body-wrapper">
+      <!--  Header Start -->
+      <?php include("./include/header.php");  ?>
+      <!--  Header End -->
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12 d-flex align-items-stretch">
+            <div class="card w-100">
+              <div class="card-body p-4">
+                <?php
+                $id = $_SESSION["token"];
+                $role = $_SESSION["role"];
 
-                  <?php
-                  }
-                  unset($_SESSION["msg"]);
-                  ?>
-                  <button class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2" name="login">
-                    Sign In
-                  </button>
-                  <div class="d-flex align-items-center justify-content-center">
-                    <p class="fs-4 mb-0 fw-bold">
-                      New to <b>BelongingGuard</b>?
-                    </p>
-                    <a class="text-primary fw-bold ms-2" href="./register.php">Create an account</a>
-                  </div>
-                </form>
+                $sql;
+                if ($role == "0") {
+                  $sql = "SELECT * FROM `item_tbl` WHERE regById = '$id' ORDER BY `created_at` ASC LIMIT 5";
+                } else {
+                  $sql = "SELECT * FROM `item_tbl` ORDER BY `created_at` DESC LIMIT 5";
+                }
+                $result = mysqli_query($con, $sql);
+                $num = mysqli_num_rows($result);
+                // print_r($data);
+                ?>
+                <h5 class="card-title fw-semibold mb-4">
+                  Recent 5 Items
+                </h5>
+                <div class="table-responsive">
+                  <table class="table text-nowrap mb-0 align-middle">
+                    <thead class="text-dark fs-4">
+                      <tr>
+                        <th class="border-bottom-0">
+                          <h6 class="fw-semibold mb-0">Item name</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                          <h6 class="fw-semibold mb-0">Type</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                          <h6 class="fw-semibold mb-0">Check-in on</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                          <h6 class="fw-semibold mb-0">Check-out on</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                          <h6 class="fw-semibold mb-0">Status</h6>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                      if ($num <= 0) {
+                        echo "Data not fond";
+                      } else {
+                        // $i = 1;
+                        while ($row = mysqli_fetch_assoc($result)) {
+                      ?>
+                          <tr>
+                            <td class="border-bottom-0">
+                              <p class="mb-0 fw-normal"><?php echo $row["itemName"] ?></p>
+                            </td>
+                            <td class="border-bottom-0">
+                              <span class="fw-normal"><?php echo $row["itemType"] ?></span>
+                            </td>
+                            <td class="border-bottom-0">
+                              <p class="mb-0 fw-normal"><?php echo ($row["checkIn"] == "" ? "------" : $row["checkIn"]);  ?></p>
+                            </td>
+                            <td class="border-bottom-0">
+                              <div class="d-flex align-items-center gap-2">
+                                <p lass="mb-0 fw-normal"><?php echo ($row["checkOut"] == "" ? "------" : $row["checkOut"]);  ?></p>
+                              </div>
+                            </td>
+                            <td class="border-bottom-0">
+                              <?php
+                              $status = $row["status"];
+
+                              if ($status == "0") {
+                                echo '<span class="badge bg-primary rounded-4 fw-semibold">
+                              Awaiting review
+                            </span>';
+                              } elseif ($status == "1") {
+                                echo '<span class="badge bg-danger rounded-4 fw-semibold">
+                              Rejected
+                            </span>';
+                              } elseif ($status == "2") {
+                                echo '<span class="badge bg-success rounded-4 fw-semibold">
+                              Safe
+                            </span>';
+                              }
+
+                              ?>
+                              
+                            </td>
+                          </tr>
+                      <?php
+                          // $i++;
+                        }
+                      }
+                      ?>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+        <div class="py-6 px-6 text-center">
+          <p class="mb-0 fs-4">Design and Developed by <b>SWE GROUP E</b></p>
         </div>
       </div>
     </div>
   </div>
   <script src="./static/libs/jquery/dist/jquery.min.js"></script>
   <script src="./static/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./static/js/sidebarmenu.js"></script>
   <script src="./static/js/app.min.js"></script>
+  <script src="./static/libs/simplebar/dist/simplebar.js"></script>
 </body>
 
 </html>

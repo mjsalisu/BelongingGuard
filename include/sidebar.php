@@ -24,7 +24,7 @@ $role = $_SESSION["role"];
                     <span class="hide-menu">Home</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="./dashboard.php" aria-expanded="false">
+                    <a class="sidebar-link" href="./index.php" aria-expanded="false">
                         <span>
                             <i class="ti ti-layout-dashboard"></i>
                         </span>
@@ -44,7 +44,7 @@ $role = $_SESSION["role"];
                     <span class="hide-menu">Valuables</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="./item_reg.php" aria-expanded="false">
+                    <a class="sidebar-link" href="./item-reg.php" aria-expanded="false">
                         <span>
                             <i class="ti ti-git-pull-request"></i>
                         </span>

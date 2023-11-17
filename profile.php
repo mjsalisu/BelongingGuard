@@ -46,7 +46,7 @@ checklogin();
             <?php
 
             $id = $_SESSION["token"];
-            $sql = "SELECT * FROM `user_tbl` WHERE id = '$id'";
+            $sql = "SELECT * FROM `user` WHERE id = '$id'";
             $result = mysqli_query($con, $sql);
             $userData = mysqli_fetch_assoc($result);
 
@@ -107,7 +107,7 @@ checklogin();
                   <div class="col-sm">
                     <div class="mb-3">
                       <label class="form-label">New password</label>
-                      <input class="form-control" name="newPassword" type="password" placeholder="Enter a new password" />
+                      <input class="form-control" name="newPassword" type="text" placeholder="Enter a new password (4 to 8 characters)" require/>
                     </div>
                   </div>
                   <div class="col-sm">

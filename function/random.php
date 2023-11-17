@@ -1,6 +1,6 @@
 <?php
 
-function generateRandomString($length = 7) {
+function generateRandomString($length = 6) {
     $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $randomString = '';
     $maxIndex = strlen($characters) - 1;
