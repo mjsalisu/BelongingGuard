@@ -44,7 +44,7 @@ if (isset($_POST["addItem"])) {
 // Check-in or Reject item
 else if (isset($_POST["approveItem"]) || isset($_POST["rejectItem"])) {
     $checkInById = $_SESSION["token"];
-    $trackingId = 'H1IZIEL';
+    $trackingId = mysqli_real_escape_string($con, validate($_POST["trackId"]));
     $itemName = mysqli_real_escape_string($con, validate($_POST["itemName"]));
     $itemType = mysqli_real_escape_string($con, validate($_POST["itemType"]));
     $itemQuantity = mysqli_real_escape_string($con, validate($_POST["itemQuantity"]));
@@ -69,7 +69,7 @@ else if (isset($_POST["approveItem"]) || isset($_POST["rejectItem"])) {
     $res = mysqli_query($con, $sql);
     if ($res) {
         $_SESSION["msg"] = '
-        Item has been ' . (status == 2 ? 'approved' : 'rejected') . ' successfully';
+        Item has been ' . ($status == 2 ? '<b>approved</b>' : 'rejected') . ' successfully';
         header("location: ../checkin.php");
     } else {
         $_SESSION["msg"] = '
@@ -81,7 +81,7 @@ else if (isset($_POST["approveItem"]) || isset($_POST["rejectItem"])) {
 // Check-out item
 else if (isset($_POST["checkOutItem"])) {
     $checkOutById = $_SESSION["token"];
-    $trackingId = 'H1IZIEL';
+    $trackingId = mysqli_real_escape_string($con, validate($_POST["trackId"]));
     $checkOutDate = $timestamp;
     $checkOutNote = mysqli_real_escape_string($con, validate($_POST["checkOutNote"]));
     $status = 3; // checkOutItem
@@ -98,6 +98,6 @@ else if (isset($_POST["checkOutItem"])) {
         header("location: ../checkout.php");
     }
 } else {
-    echo $timestamp;
-    echo '<h3>You are not authorized to access this page</h3>';
+    // echo $timestamp;
+    // echo '<h3>You are not authorized to access this page</h3>';
 }
