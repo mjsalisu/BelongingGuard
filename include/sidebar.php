@@ -52,29 +52,26 @@ $role = $_SESSION["role"];
                     </a>
                 </li>
                 <?php
-                if ($role == "1") {
-                ?>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="./checkin.php" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-paper-bag"></i>
-                            </span>
-                            <span class="hide-menu">Item Check-in</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="./checkout.php" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-paper-bag-off"></i>
-                            </span>
-                            <span class="hide-menu">Item Check-out</span>
-                        </a>
-                    </li>
-                <?php
-                }
-
-
+                    if ($role == "1") {
+                    ?>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="./checkin.php" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-paper-bag"></i>
+                                </span>
+                                <span class="hide-menu">Item Check-in</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="./checkout.php" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-paper-bag-off"></i>
+                                </span>
+                                <span class="hide-menu">Item Check-out</span>
+                            </a>
+                        </li>
+                    <?php
+                    }
                 ?>
 
                 <li class="nav-small-cap">
@@ -89,6 +86,22 @@ $role = $_SESSION["role"];
                         <span class="hide-menu">Items</span>
                     </a>
                 </li>
+
+                <?php
+                    if ($role == "1") {
+                    ?>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="./users.php" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-users"></i>
+                                </span>
+                                <span class="hide-menu">Users</span>
+                            </a>
+                        </li>
+                    <?php
+                    }
+                ?>
+                
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

@@ -12,7 +12,7 @@ checklogin();
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Items Logs | Belonging Guard MSSN BUK</title>
+  <title>Users Logs | Belonging Guard MSSN BUK</title>
   <link rel="icon" href="static/images/logos/mssn.png" type="image/x-icon" />
   <link rel="stylesheet" href="static/css/styles.min.css" />
 </head>
@@ -34,33 +34,27 @@ checklogin();
           $id = $_SESSION["token"];
           $role = $_SESSION["role"];
 
-          // user see his/her item ONLY while admin everthing
-          if ($role == "0") {
-            $sql = "SELECT * FROM `item_tbl` WHERE regById = '$id'";
-          } else {
-            $sql = "SELECT * FROM `item_tbl`";
-          }
+          $sql = "SELECT * FROM `user` WHERE role=0";
           $result = mysqli_query($con, $sql);
           $num = mysqli_num_rows($result);
           ?>
           <div class="card-body">
             <h5 class="card-title fw-semibold mb-4">
-              Belonging Status Overview
+              Users Overview
             </h5>
             <p class="mb-4">
-              <span class="fw-semibold">Total Items:</span> <?php echo $num;  ?>
+              <span class="fw-semibold">Total Users:</span> <?php echo $num;  ?>
             </p>
-            <div class="card">
               <div class="table-responsive-sm p-4">
                 <table class="table table-sm table-hover">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">Item Name</th>
-                      <th scope="col">Type</th>
-                      <th scope="col">Quantity</th>
-                      <th scope="col">Tracking ID</th>
-                      <th scope="col">Status</th>
+                      <th scope="col">Fullname</th>
+                      <th scope="col">Phone</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Reg No</th>
+                      <th scope="col">Join Date</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -76,29 +70,11 @@ checklogin();
                     ?>
                         <tr>
                           <th scope="row"><?php echo $i; ?></th>
-                          <td><?php echo $row["itemName"] ?></td>
-                          <td><?php echo $row["itemType"] ?></td>
-                          <td><?php echo $row["itemQuantity"] ?></td>
-                          <td><?php echo $row["trackId"] ?></td>
-                          <td>
-                          <?php
-                            $status = $row["status"];
-                            if ($status == "0") {
-                              echo '<span class="badge bg-warning rounded-4 fw-semibold">
-                              Pending';
-                            } elseif ($status == "1") {
-                              echo '<span class="badge bg-danger rounded-4 fw-semibold">
-                              Rejected';
-                            } elseif ($status == "2") {
-                              echo '<span class="badge bg-success rounded-4 fw-semibold">
-                              Safe';
-                            } elseif ($status == "3") {
-                              echo '<span class="badge bg-primary rounded-4 fw-semibold">
-                              Retrived';
-                            }
-                            echo '</span>';
-                          ?>
-                          </td>
+                          <td><?php echo $row["name"] ?></td>
+                          <td><?php echo $row["phone"] ?></td>
+                          <td><?php echo $row["email"] ?></td>
+                          <td><?php echo ($row["regNo"] != "" ? $row["regNo"] : "—");  ?></td>
+                          <td><?php echo $row["created_at"] ?></td>
                         </tr>
                     <?php
                         $i++;
