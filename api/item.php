@@ -58,7 +58,7 @@ else if (isset($_POST["approveItem"]) || isset($_POST["rejectItem"])) {
     }
 
     // return error if empty
-    if (empty($itemName) || empty($itemType) || empty($itemQuantity) || empty($itemDescription)) {
+    if (empty($itemName) || empty($itemType) || empty($itemQuantity) || empty($itemDescription) || empty($trackingId)) {
         $_SESSION["msg"] = '
         All fields are required';
         header("location: ../checkin.php");
@@ -85,6 +85,13 @@ else if (isset($_POST["checkOutItem"])) {
     $checkOutDate = $timestamp;
     $checkOutNote = mysqli_real_escape_string($con, validate($_POST["checkOutNote"]));
     $status = 3; // checkOutItem
+
+    if (empty($trackingId)) {
+        $_SESSION["msg"] = '
+        Oooops, something went wrong';
+        header("location: ../checkout.php");
+        exit();
+    }
 
     $sql = "UPDATE `item_tbl` SET `checkOutBy`='$checkOutById',`checkOutDate`='$checkOutDate',`checkOutNote`='$checkOutNote',`status`=$status WHERE trackId='$trackingId'";
     $res = mysqli_query($con, $sql);

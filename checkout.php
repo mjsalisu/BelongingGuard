@@ -3,7 +3,6 @@ error_reporting(0);
 include("./function/checkLogin.php");
 include("./api/dbcon.php");
 checklogin();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,121 +33,72 @@ checklogin();
         <!--  Header Start -->
         <?php include("./include/header.php"); ?>
         <!--  Header End -->
-        <div class="container-fluid">
-           <?php
+         <div class="container-fluid">
+          <?php
             if (isset($_SESSION["msg"])) {
             ?>
               <div class="alert alert-info {% if isError %}alert-danger{% else %}alert-success{% endif %} text-center mb-4" role="alert" id="message">
                 <?php echo $_SESSION["msg"]; ?>
               </div>
-
             <?php
             }
             unset($_SESSION["msg"]);
-            ?>
+          ?>
 
-          <div class="card">
-            <div class="card-body">
+          <?php
+          $sql = "SELECT * FROM `item_tbl` WHERE status=2";
+          $result = mysqli_query($con, $sql);
+          $num = mysqli_num_rows($result);
+          ?>
+          <div class="card-body">
+            <h5 class="card-title fw-semibold mb-4">
+              Item <b>Check-Out</b> and Collection
+            </h5>
+            <p class="mb-4">
+              <span class="fw-semibold">Total Items:</span> <?php echo $num;  ?>
+            </p>
+            <div class="card">
+              <div class="table-responsive-sm p-4">
+                <table class="table table-sm table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Item Name</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col">Tracking ID</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
 
-             <?php
-                $trackingId = 'H1IZIEL';
-                $sqlItem = "SELECT * FROM `item_tbl` WHERE LOWER(trackId) = LOWER('$trackingId') AND status=2";
-                $itemResult = mysqli_query($con, $sqlItem);
-                $itemData = mysqli_fetch_assoc($itemResult);
-              ?>
-
-              <h5 class="card-title fw-semibold mb-4">
-                Item Check-Out and Collection
-              </h5>
-              <div class="container">
-                <div class="row">
-                  <div class="col-sm">
-                    <div class="mb-3">
-                      <input
-                        class="form-control"
-                        type="text"
-                        name="trackingID"
-                        placeholder="Enter item tracking id"
-                      />
-                      <div class="form-text" id="hint"></div>
-                    </div>
-                  </div>
-                  <div class="col-sm">
-                    <div class="mb-3">
-                      <button onclick="showSubPage()" class="btn btn-primary">
-                        Search for item
-                      </button>
-                    </div>
-                  </div>
-                  <div class="col-sm">
-                    <div class="mb-3"></div>
-                  </div>
-                </div>
-
-                <hr />
-
-               <form action="./api/item.php" method="post">
-                  <div id="subPage">
-                    <div class="row">
-                      <div class="col-sm">
-                        <div class="mb-3">
-                          <label class="form-label">Item name</label>
-                          <p><?php echo $itemData["itemName"];?></p>
-                        </div>
-                      </div>
-                      <div class="col-sm">
-                        <div class="mb-3">
-                          <label class="form-label">Item type</label>
-                          <p><?php echo $itemData["itemType"];?></p>
-                        </div>
-                      </div>
-                      <div class="col-sm">
-                        <div class="mb-3">
-                          <label class="form-label">Quantity</label>
-                          <p><?php echo $itemData["itemQuantity"];?></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm">
-                        <div class="mb-3">
-                          <label class="form-label">Check-in date</label>
-                          <p><?php echo $itemData["checkInDate"];?></p>
-                        </div>
-                      </div>
-                      <div class="col-sm">
-                        <div class="mb-3">
-                          <label class="form-label">Check-in by</label>
-                          <p><?php echo $itemData["checkInBy"];?></p>
-                        </div>
-                      </div>
-                      <div class="col-sm">
-                        <div class="mb-3">
-                         <label class="form-label">Check-in note</label>
-                          <p><?php echo $itemData["checkInNote"];?></p>
-                        </div>
-                      </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                      <div class="col-sm">
-                        <div class="mb-3">
-                          <label class="form-label">Check-out note </label>
-                          <textarea
-                            class="form-control"
-                            rows="3"
-                            name="checkOutNote"
-                            placeholder="Enter check-out note"
-                          ></textarea>
-                        </div>
-                      </div>
-                    </div>
-                    <button type="submit" class="btn btn-success m-2" name="checkOutItem">
-                      Checkout
-                    </button>
-                    <button type="reset" class="btn btn-light">Cancel</button>
-                  </div>
-                </form>
+                    <?php
+                    if ($num <= 0) {
+                      echo "<tr><td colspan='6' class='text-center text-muted py-4 h3'>
+                      Cheers! All items have been successfully Checked-Out.
+                      </td></tr>";
+                    } else {
+                      $i = 1;
+                      while ($row = mysqli_fetch_assoc($result)) {
+                    ?>
+                        <tr>
+                          <th scope="row"><?php echo $i; ?></th>
+                          <td><?php echo $row["itemName"] ?></td>
+                          <td><?php echo $row["itemType"] ?></td>
+                          <td><?php echo $row["itemQuantity"] ?></td>
+                          <td><?php echo $row["trackId"] ?></td>
+                          <td>
+                            <a href="view-checkout.php?trackingID=<?php echo $row["trackId"] ?>" 
+                            class="btn btn-sm btn-light">Check-Out</a>
+                          </td>
+                        </tr>
+                    <?php
+                        $i++;
+                      }
+                    }
+                    ?>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>

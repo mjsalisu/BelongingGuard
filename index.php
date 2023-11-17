@@ -54,16 +54,16 @@ checklogin();
                     <thead class="text-dark fs-4">
                       <tr>
                         <th class="border-bottom-0">
-                          <h6 class="fw-semibold mb-0">Item name</h6>
+                          <h6 class="fw-semibold mb-0">Item Name</h6>
                         </th>
                         <th class="border-bottom-0">
                           <h6 class="fw-semibold mb-0">Type</h6>
                         </th>
                         <th class="border-bottom-0">
-                          <h6 class="fw-semibold mb-0">Check-in on</h6>
+                          <h6 class="fw-semibold mb-0">Check-In Date</h6>
                         </th>
                         <th class="border-bottom-0">
-                          <h6 class="fw-semibold mb-0">Check-out on</h6>
+                          <h6 class="fw-semibold mb-0">Check-Out Date</h6>
                         </th>
                         <th class="border-bottom-0">
                           <h6 class="fw-semibold mb-0">Status</h6>
@@ -86,11 +86,11 @@ checklogin();
                               <span class="fw-normal"><?php echo $row["itemType"] ?></span>
                             </td>
                             <td class="border-bottom-0">
-                              <p class="mb-0 fw-normal"><?php echo ($row["checkInDate"] != "" ? $row["checkInDate"] : "------");  ?></p>
+                              <p class="mb-0 fw-normal"><?php echo ($row["checkInDate"] != "" ? $row["checkInDate"] : "—");  ?></p>
                             </td>
                             <td class="border-bottom-0">
                               <div class="d-flex align-items-center gap-2">
-                                <p lass="mb-0 fw-normal"><?php echo ($row["checkOutDate"] != "" ? $row["checkOutDate"] : "------");  ?></p>
+                                <p lass="mb-0 fw-normal"><?php echo ($row["checkOutDate"] != "" ? $row["checkOutDate"] : "—");  ?></p>
                               </div>
                             </td>
                             <td class="border-bottom-0">

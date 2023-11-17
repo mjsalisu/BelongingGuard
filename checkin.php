@@ -47,7 +47,6 @@ checklogin();
             unset($_SESSION["msg"]);
           ?>
 
-        <div class="card">
           <?php
           $sql = "SELECT * FROM `item_tbl` WHERE status=0";
           $result = mysqli_query($con, $sql);
@@ -78,7 +77,7 @@ checklogin();
                     <?php
                     if ($num <= 0) {
                       echo "<tr><td colspan='6' class='text-center text-muted py-4 h3'>
-                      No item has been registered for check-in yet
+                      No items have been registered for Check-In.
                       </td></tr>";
                     } else {
                       $i = 1;
@@ -106,6 +105,7 @@ checklogin();
             </div>
           </div>
         </div>
+
       </div>
       </div>
     </div>

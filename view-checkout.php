@@ -3,13 +3,14 @@ error_reporting(0);
 include("./function/checkLogin.php");
 include("./api/dbcon.php");
 checklogin();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>View Check-In | Belonging Guard MSSN BUK</title>
+    <title>Check-Out | Belonging Guard MSSN BUK</title>
     <link rel="icon" href="static/images/logos/mssn.png" type="image/x-icon" />
     <link rel="stylesheet" href="static/css/styles.min.css" />
   </head>
@@ -36,57 +37,72 @@ checklogin();
         <div class="container-fluid">
            <?php
             if (isset($_SESSION["msg"])) {
-              ?>
-                <div class="alert alert-info {% if isError %}alert-danger{% else %}alert-success{% endif %} text-center mb-4" role="alert" id="message">
-                  <?php echo $_SESSION["msg"]; ?>
-                </div>
-              <?php
+            ?>
+              <div class="alert alert-info {% if isError %}alert-danger{% else %}alert-success{% endif %} text-center mb-4" role="alert" id="message">
+                <?php echo $_SESSION["msg"]; ?>
+              </div>
+
+            <?php
             }
             unset($_SESSION["msg"]);
             ?>
 
           <div class="card">
             <div class="card-body">
-              <?php
-                if (isset($_GET["trackingID"])) {
+
+             <?php
+               if (isset($_GET["trackingID"])) {
                   $trackingId = $_GET["trackingID"];
-                  $sqlItem = "SELECT * FROM `item_tbl` WHERE LOWER(trackId) = LOWER('$trackingId') AND status=0";
+                  $sqlItem = "SELECT * FROM `item_tbl` WHERE LOWER(trackId) = LOWER('$trackingId') AND status=2";
                   $itemResult = mysqli_query($con, $sqlItem);
                   $itemData = mysqli_fetch_assoc($itemResult);
                 }
               ?>
+
               <h5 class="card-title fw-semibold mb-4">
-                Item Check-In Verification
+                Item Check-Out and Collection
               </h5>
               <div class="container">
-                <form action="./api/item.php" method="post">
+               <form action="./api/item.php" method="post">
                   <div id="">
-                   <input type="hidden" name="trackId" value="<?php echo $itemData["trackId"];?>" readonly/>
+                    <input type="hidden" name="trackId" value="<?php echo $itemData["trackId"];?>" readonly/>
                     <div class="row">
                       <div class="col-sm">
                         <div class="mb-3">
-                          <label class="form-label">Item name</label>
-                          <input class="form-control" type="text" name="itemName" value="<?php echo $itemData["itemName"];?>" />
+                          <label class="form-label">Item Name</label>
+                          <p><?php echo $itemData["itemName"];?></p>
                         </div>
                       </div>
                       <div class="col-sm">
                         <div class="mb-3">
-                          <label class="form-label">Item type</label>
-                          <input class="form-control" type="text" name="itemType" value="<?php echo $itemData["itemType"];?>" />
+                          <label class="form-label">Item Type</label>
+                          <p><?php echo $itemData["itemType"];?></p>
                         </div>
                       </div>
                       <div class="col-sm">
                         <div class="mb-3">
                           <label class="form-label">Quantity</label>
-                          <input class="form-control" type="number" name="itemQuantity" min="1"value="<?php echo $itemData["itemQuantity"];?>"/>
+                          <p><?php echo $itemData["itemQuantity"];?></p>
                         </div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-sm">
                         <div class="mb-3">
-                          <label class="form-label">Description</label>
-                          <textarea class="form-control" rows="3" name="itemDescription" placeholder="Enter item description" required><?php echo $itemData["itemDescription"];?></textarea>
+                          <label class="form-label">Check-In Date</label>
+                          <p><?php echo $itemData["checkInDate"];?></p>
+                        </div>
+                      </div>
+                      <div class="col-sm">
+                        <div class="mb-3">
+                         <label class="form-label">Check-In Note</label>
+                          <p><?php echo $itemData["checkInNote"];?></p>
+                        </div>
+                      </div>
+                      <div class="col-sm">
+                        <div class="mb-3">
+                          <!-- <label class="form-label">Check-In By</label>
+                          <p><?php echo $itemData["checkInBy"];?></p> -->
                         </div>
                       </div>
                     </div>
@@ -94,18 +110,15 @@ checklogin();
                     <div class="row">
                       <div class="col-sm">
                         <div class="mb-3">
-                          <label class="form-label">Check-in or Rejecting note</label>
-                          <textarea class="form-control" rows="3" name="checkInNote" placeholder="Enter check-in or rejecting note"></textarea>
-                          <div class="form-text" id="hint"></div>
+                          <label class="form-label">Check-Out Note </label>
+                          <textarea class="form-control" rows="3" name="checkOutNote" placeholder="Enter check-out note"></textarea>
                         </div>
                       </div>
                     </div>
-                    <button type="submit" class="btn btn-success m-2" name="approveItem">
-                      Approve
+                    <button type="submit" class="btn btn-success m-2" name="checkOutItem">
+                      Checkout
                     </button>
-                    <button type="submit" class="btn btn-outline-danger" name="rejectItem">
-                      Rejected
-                    </button>
+                    <button type="reset" class="btn btn-light">Cancel</button>
                   </div>
                 </form>
               </div>
