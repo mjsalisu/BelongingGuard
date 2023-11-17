@@ -38,9 +38,9 @@ checklogin();
 
                 $sql;
                 if ($role == "0") {
-                  $sql = "SELECT * FROM `item_tbl` WHERE regById = '$id' ORDER BY `created_at` ASC LIMIT 5";
+                  $sql = "SELECT * FROM `item_table` WHERE regById = '$id' ORDER BY `created_at` ASC LIMIT 5";
                 } else {
-                  $sql = "SELECT * FROM `item_tbl` ORDER BY `created_at` DESC LIMIT 5";
+                  $sql = "SELECT * FROM `item_table` ORDER BY `created_at` DESC LIMIT 5";
                 }
                 $result = mysqli_query($con, $sql);
                 $num = mysqli_num_rows($result);

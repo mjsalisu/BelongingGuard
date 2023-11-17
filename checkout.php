@@ -46,7 +46,7 @@ checklogin();
           ?>
 
           <?php
-          $sql = "SELECT * FROM `item_tbl` WHERE status=2";
+          $sql = "SELECT * FROM `item_table` WHERE status=2";
           $result = mysqli_query($con, $sql);
           $num = mysqli_num_rows($result);
           ?>

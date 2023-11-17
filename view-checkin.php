@@ -50,7 +50,7 @@ checklogin();
               <?php
                 if (isset($_GET["trackingID"])) {
                   $trackingId = $_GET["trackingID"];
-                  $sqlItem = "SELECT * FROM `item_tbl` WHERE LOWER(trackId) = LOWER('$trackingId') AND status=0";
+                  $sqlItem = "SELECT * FROM `item_table` WHERE LOWER(trackId) = LOWER('$trackingId') AND status=0";
                   $itemResult = mysqli_query($con, $sqlItem);
                   $itemData = mysqli_fetch_assoc($itemResult);
                 }

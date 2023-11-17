@@ -28,7 +28,7 @@ if (isset($_POST["addItem"])) {
     $itemImage_tmp = $_FILES["itemImage"]["tmp_name"];
     move_uploaded_file($itemImage_tmp, $uploads_dir . '/' . $itemImage);
 
-    $sql = "INSERT INTO `item_tbl`(`regById`, `trackId`, `itemName`, `itemType`, `itemQuantity`, `itemImage`, `itemDescription`, `status`) VALUES ('$regById','$trackId','$itemName','$itemType','$itemQuantity','$itemImage','$itemDescription','0')";
+    $sql = "INSERT INTO `item_table`(`regById`, `trackId`, `itemName`, `itemType`, `itemQuantity`, `itemImage`, `itemDescription`, `status`) VALUES ('$regById','$trackId','$itemName','$itemType','$itemQuantity','$itemImage','$itemDescription','0')";
     $result = mysqli_query($con, $sql);
     if ($result) {
         $_SESSION["msg"] = '
@@ -65,7 +65,7 @@ else if (isset($_POST["approveItem"]) || isset($_POST["rejectItem"])) {
         exit();
     }
 
-    $sql = "UPDATE `item_tbl` SET `itemName`='$itemName',`itemType`='$itemType',`itemQuantity`='$itemQuantity',`itemDescription`='$itemDescription',`checkInBy`='$checkInById',`checkInDate`='$checkInDate',`checkInNote`='$checkInNote',`status`=$status WHERE trackId='$trackingId'";
+    $sql = "UPDATE `item_table` SET `itemName`='$itemName',`itemType`='$itemType',`itemQuantity`='$itemQuantity',`itemDescription`='$itemDescription',`checkInBy`='$checkInById',`checkInDate`='$checkInDate',`checkInNote`='$checkInNote',`status`=$status WHERE trackId='$trackingId'";
     $res = mysqli_query($con, $sql);
     if ($res) {
         $_SESSION["msg"] = '
@@ -93,7 +93,7 @@ else if (isset($_POST["checkOutItem"])) {
         exit();
     }
 
-    $sql = "UPDATE `item_tbl` SET `checkOutBy`='$checkOutById',`checkOutDate`='$checkOutDate',`checkOutNote`='$checkOutNote',`status`=$status WHERE trackId='$trackingId'";
+    $sql = "UPDATE `item_table` SET `checkOutBy`='$checkOutById',`checkOutDate`='$checkOutDate',`checkOutNote`='$checkOutNote',`status`=$status WHERE trackId='$trackingId'";
     $res = mysqli_query($con, $sql);
     if ($res) {
         $_SESSION["msg"] = '

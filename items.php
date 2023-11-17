@@ -36,9 +36,9 @@ checklogin();
 
           // user see his/her item ONLY while admin everthing
           if ($role == "0") {
-            $sql = "SELECT * FROM `item_tbl` WHERE regById = '$id'";
+            $sql = "SELECT * FROM `item_table` WHERE regById = '$id'";
           } else {
-            $sql = "SELECT * FROM `item_tbl`";
+            $sql = "SELECT * FROM `item_table`";
           }
           $result = mysqli_query($con, $sql);
           $num = mysqli_num_rows($result);
