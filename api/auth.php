@@ -20,8 +20,7 @@ if (isset($_POST["login"])) {
         $_SESSION["role"] = $userData["role"];
         header("location: ../index.php");
     } else {
-        $_SESSION["msg"] = '
-        Invalid Username Or Password.';
+        $_SESSION["msg"] = 'Invalid login details';
         header("location: ../login.php");
         // echo 'Error';
     }
@@ -37,9 +36,8 @@ if (isset($_POST["register"])) {
     $sql = "INSERT INTO `user`(`name`, `email`, `phone`, `password`, `role`) VALUES ('$fullname','$emailAddress','$phoneNumber','$password','0')";
     $res = mysqli_query($con, $sql);
     if ($res) {
-        $_SESSION["msg"] = '
-        Account created successfull, Proceed to Login';
-        header("location: ../register.php");
+        $_SESSION["msg"] = 'Your account created successfull, proceed to login';
+        header("location: ../login.php");
     } else {
         $_SESSION["msg"] = '
         Oooops, something went wrong';
