@@ -42,7 +42,7 @@ if (isset($_POST["addItem"])) {
 }
 
 // Check-in or Reject item
-if (isset($_POST["approveItem"]) || isset($_POST["rejectItem"])) {
+else if (isset($_POST["approveItem"]) || isset($_POST["rejectItem"])) {
     $checkInById = $_SESSION["token"];
     $trackingId = 'H1IZIEL';
     $itemName = mysqli_real_escape_string($con, validate($_POST["itemName"]));
@@ -69,7 +69,7 @@ if (isset($_POST["approveItem"]) || isset($_POST["rejectItem"])) {
     $res = mysqli_query($con, $sql);
     if ($res) {
         $_SESSION["msg"] = '
-       Item has been check-in successful';
+        Item has been ' . (status == 2 ? 'approved' : 'rejected') . ' successfully';
         header("location: ../checkin.php");
     } else {
         $_SESSION["msg"] = '
@@ -79,34 +79,25 @@ if (isset($_POST["approveItem"]) || isset($_POST["rejectItem"])) {
 }
 
 // Check-out item
-if (isset($_POST["approveItem"]))) {
-    $checkInById = $_SESSION["token"];
+else if (isset($_POST["checkOutItem"])) {
+    $checkOutById = $_SESSION["token"];
     $trackingId = 'H1IZIEL';
-    $itemName = mysqli_real_escape_string($con, validate($_POST["itemName"]));
-    $itemType = mysqli_real_escape_string($con, validate($_POST["itemType"]));
-    $itemQuantity = mysqli_real_escape_string($con, validate($_POST["itemQuantity"]));
-    $itemDescription = mysqli_real_escape_string($con, validate($_POST["itemDescription"]));
-    $checkInDate = $timestamp;
-    $checkInNote = mysqli_real_escape_string($con, validate($_POST["checkInNote"]));
-    $status = 2; // approveItem
+    $checkOutDate = $timestamp;
+    $checkOutNote = mysqli_real_escape_string($con, validate($_POST["checkOutNote"]));
+    $status = 3; // checkOutItem
 
-    // return error if empty
-    if (empty($itemName) || empty($itemType) || empty($itemQuantity) || empty($itemDescription)) {
-        $_SESSION["msg"] = '
-        All fields are required';
-        header("location: ../checkin.php");
-        exit();
-    }
-
-    $sql = "UPDATE `item_tbl` SET `itemName`='$itemName',`itemType`='$itemType',`itemQuantity`='$itemQuantity',`itemDescription`='$itemDescription',`checkInBy`='$checkInById',`checkInDate`='$checkInDate',`checkInNote`='$checkInNote',`status`=$status WHERE trackId='$trackingId'";
+    $sql = "UPDATE `item_tbl` SET `checkOutBy`='$checkOutById',`checkOutDate`='$checkOutDate',`checkOutNote`='$checkOutNote',`status`=$status WHERE trackId='$trackingId'";
     $res = mysqli_query($con, $sql);
     if ($res) {
         $_SESSION["msg"] = '
-       Item has been check-in successful';
-        header("location: ../checkin.php");
+        Item has been check-out for retrieval successful';
+        header("location: ../checkout.php");
     } else {
         $_SESSION["msg"] = '
         Oooops, something went wrong';
-        header("location: ../checkin.php");
+        header("location: ../checkout.php");
     }
+} else {
+    echo $timestamp;
+    echo '<h3>You are not authorized to access this page</h3>';
 }

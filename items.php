@@ -81,24 +81,23 @@ checklogin();
                           <td><?php echo $row["itemQuantity"] ?></td>
                           <td><?php echo $row["trackId"] ?></td>
                           <td>
-                            <?php
+                          <?php
                             $status = $row["status"];
-
                             if ($status == "0") {
-                              echo '<span class="badge bg-primary rounded-4 fw-semibold">
-                              Awaiting review
-                            </span>';
+                              echo '<span class="badge bg-warning rounded-4 fw-semibold">
+                              Pending';
                             } elseif ($status == "1") {
                               echo '<span class="badge bg-danger rounded-4 fw-semibold">
-                              Rejected
-                            </span>';
+                              Rejected';
                             } elseif ($status == "2") {
                               echo '<span class="badge bg-success rounded-4 fw-semibold">
-                              Safe
-                            </span>';
+                              Safe';
+                            } elseif ($status == "3") {
+                              echo '<span class="badge bg-primary rounded-4 fw-semibold">
+                              Retrived';
                             }
-
-                            ?>
+                            echo '</span>';
+                          ?>
                           </td>
                         </tr>
                     <?php

@@ -86,33 +86,31 @@ checklogin();
                               <span class="fw-normal"><?php echo $row["itemType"] ?></span>
                             </td>
                             <td class="border-bottom-0">
-                              <p class="mb-0 fw-normal"><?php echo ($row["checkIn"] == "" ? "------" : $row["checkIn"]);  ?></p>
+                              <p class="mb-0 fw-normal"><?php echo ($row["checkInDate"] != "" ? $row["checkInDate"] : "------");  ?></p>
                             </td>
                             <td class="border-bottom-0">
                               <div class="d-flex align-items-center gap-2">
-                                <p lass="mb-0 fw-normal"><?php echo ($row["checkOut"] == "" ? "------" : $row["checkOut"]);  ?></p>
+                                <p lass="mb-0 fw-normal"><?php echo ($row["checkOutDate"] != "" ? $row["checkOutDate"] : "------");  ?></p>
                               </div>
                             </td>
                             <td class="border-bottom-0">
-                              <?php
+                          <?php
                               $status = $row["status"];
-
                               if ($status == "0") {
-                                echo '<span class="badge bg-primary rounded-4 fw-semibold">
-                              Awaiting review
-                            </span>';
+                                echo '<span class="badge bg-warning rounded-4 fw-semibold">
+                              Pending';
                               } elseif ($status == "1") {
                                 echo '<span class="badge bg-danger rounded-4 fw-semibold">
-                              Rejected
-                            </span>';
+                              Rejected';
                               } elseif ($status == "2") {
                                 echo '<span class="badge bg-success rounded-4 fw-semibold">
-                              Safe
-                            </span>';
+                              Safe';
+                              } elseif ($status == "3") {
+                                echo '<span class="badge bg-primary rounded-4 fw-semibold">
+                              Retrived';
                               }
-
-                              ?>
-                              
+                              echo '</span>';
+                          ?>
                             </td>
                           </tr>
                       <?php

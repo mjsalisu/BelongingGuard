@@ -38,6 +38,18 @@ if (isset($_POST["checkIn"])) {
         <?php include("./include/header.php"); ?>
         <!--  Header End -->
         <div class="container-fluid">
+           <?php
+            if (isset($_SESSION["msg"])) {
+            ?>
+              <div class="alert alert-info {% if isError %}alert-danger{% else %}alert-success{% endif %} text-center mb-4" role="alert" id="message">
+                <?php echo $_SESSION["msg"]; ?>
+              </div>
+
+            <?php
+            }
+            unset($_SESSION["msg"]);
+            ?>
+            
           <div class="card">
             <div class="card-body">
 
@@ -108,14 +120,6 @@ if (isset($_POST["checkIn"])) {
                         </div>
                       </div>
                     </div>
-                    <input
-                      class="form-control"
-                      type="hidden"
-                      placeholder="checkInBy"
-                      name="checkInBy"
-                      value="checkInBy"
-                      readonly
-                    />
                     <hr />
                     <div class="row">
                       <div class="col-sm">

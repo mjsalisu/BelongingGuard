@@ -1,6 +1,7 @@
 <?php
 error_reporting(0);
 include("./function/checkLogin.php");
+include("./api/dbcon.php");
 checklogin();
 
 ?>
@@ -34,8 +35,28 @@ checklogin();
         <?php include("./include/header.php"); ?>
         <!--  Header End -->
         <div class="container-fluid">
+           <?php
+            if (isset($_SESSION["msg"])) {
+            ?>
+              <div class="alert alert-info {% if isError %}alert-danger{% else %}alert-success{% endif %} text-center mb-4" role="alert" id="message">
+                <?php echo $_SESSION["msg"]; ?>
+              </div>
+
+            <?php
+            }
+            unset($_SESSION["msg"]);
+            ?>
+
           <div class="card">
             <div class="card-body">
+
+             <?php
+                $trackingId = 'H1IZIEL';
+                $sqlItem = "SELECT * FROM `item_tbl` WHERE LOWER(trackId) = LOWER('$trackingId') AND status=2";
+                $itemResult = mysqli_query($con, $sqlItem);
+                $itemData = mysqli_fetch_assoc($itemResult);
+              ?>
+
               <h5 class="card-title fw-semibold mb-4">
                 Item Check-Out and Collection
               </h5>
@@ -66,25 +87,25 @@ checklogin();
 
                 <hr />
 
-                <form>
+               <form action="./api/item.php" method="post">
                   <div id="subPage">
                     <div class="row">
                       <div class="col-sm">
                         <div class="mb-3">
                           <label class="form-label">Item name</label>
-                          <p>{{itemName}}</p>
+                          <p><?php echo $itemData["itemName"];?></p>
                         </div>
                       </div>
                       <div class="col-sm">
                         <div class="mb-3">
                           <label class="form-label">Item type</label>
-                          <p>{{itemType}}</p>
+                          <p><?php echo $itemData["itemType"];?></p>
                         </div>
                       </div>
                       <div class="col-sm">
                         <div class="mb-3">
                           <label class="form-label">Quantity</label>
-                          <p>{{itemQuantitye}}</p>
+                          <p><?php echo $itemData["itemQuantity"];?></p>
                         </div>
                       </div>
                     </div>
@@ -92,38 +113,22 @@ checklogin();
                       <div class="col-sm">
                         <div class="mb-3">
                           <label class="form-label">Check-in date</label>
-                          <p>{{checkInDate}}</p>
+                          <p><?php echo $itemData["checkInDate"];?></p>
                         </div>
                       </div>
                       <div class="col-sm">
                         <div class="mb-3">
                           <label class="form-label">Check-in by</label>
-                          <p>{{checkInBy}}</p>
+                          <p><?php echo $itemData["checkInBy"];?></p>
                         </div>
                       </div>
                       <div class="col-sm">
                         <div class="mb-3">
-                          <label class="form-label">Status</label>
-                          <p>{{checkInStatus }}</p>
+                         <label class="form-label">Check-in note</label>
+                          <p><?php echo $itemData["checkInNote"];?></p>
                         </div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-sm">
-                        <div class="mb-3">
-                          <label class="form-label">Check-in note</label>
-                          <p>{{checkInNote }}</p>
-                        </div>
-                      </div>
-                    </div>
-                    <input
-                      class="form-control"
-                      type="hidden"
-                      placeholder="checkInBy"
-                      name="checkInBy"
-                      value="checkOutBy"
-                      readonly
-                    />
                     <hr />
                     <div class="row">
                       <div class="col-sm">
@@ -138,10 +143,10 @@ checklogin();
                         </div>
                       </div>
                     </div>
-                    <button type="submit" class="btn btn-success m-2">
+                    <button type="submit" class="btn btn-success m-2" name="checkOutItem">
                       Checkout
                     </button>
-                    <button type="submit" class="btn btn-light">Cancel</button>
+                    <button type="reset" class="btn btn-light">Cancel</button>
                   </div>
                 </form>
               </div>
