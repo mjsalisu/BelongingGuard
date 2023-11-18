@@ -66,8 +66,8 @@ checklogin();
                     } else {
                       $i = 1;
                       while ($row = mysqli_fetch_assoc($result)) {
-                    ?>
-                        <tr>
+                    ?>  
+                      <tr <?php echo ($row["role"] == 1 ? "class='table-success'" : ""); ?>>
                           <th scope="row"><?php echo $i; ?></th>
                           <td><?php echo $row["name"] ?></td>
                           <td><?php echo $row["phone"] ?></td>
