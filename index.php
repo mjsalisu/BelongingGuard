@@ -28,6 +28,18 @@ checklogin();
       <?php include("./include/header.php");  ?>
       <!--  Header End -->
       <div class="container-fluid">
+        <?php
+            if (isset($_SESSION["msg"])) {
+            ?>
+              <div class="alert alert-info {% if isError %}alert-danger{% else %}alert-success{% endif %} text-center mb-4" role="alert" id="message">
+                <?php echo $_SESSION["msg"]; ?>
+              </div>
+
+            <?php
+            }
+            unset($_SESSION["msg"]);
+            ?>
+            
         <div class="row">
           <div class="col-lg-12 d-flex align-items-stretch">
             <div class="card w-100">
@@ -73,7 +85,9 @@ checklogin();
                     <tbody>
                       <?php
                       if ($num <= 0) {
-                        echo "Data not fond";
+                         echo "<tr><td colspan='5' class='text-center text-muted py-4 h3'>
+                          No item has been registered yet
+                          </td></tr>";
                       } else {
                         // $i = 1;
                         while ($row = mysqli_fetch_assoc($result)) {

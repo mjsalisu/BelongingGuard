@@ -43,14 +43,21 @@ $role = $_SESSION["role"];
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Valuables</span>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="./item-reg.php" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-git-pull-request"></i>
-                        </span>
-                        <span class="hide-menu">Register Item</span>
-                    </a>
-                </li>
+                 <?php
+                    if ($role == "0") {
+                    ?>
+                         <li class="sidebar-item">
+                            <a class="sidebar-link" href="./item-reg.php" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-git-pull-request"></i>
+                                </span>
+                                <span class="hide-menu">Register Item</span>
+                            </a>
+                        </li>
+                    <?php
+                    }
+                ?>
+
                 <?php
                     if ($role == "1") {
                     ?>

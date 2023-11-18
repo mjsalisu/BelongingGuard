@@ -4,6 +4,11 @@ include("./function/checkLogin.php");
 include("./api/item.php");
 checklogin();
 
+if ($_SESSION["role"] == "1") {
+  $_SESSION["msg"] = "You are not allowed to access this page";
+  header("location: ./index.php");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
