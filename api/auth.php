@@ -33,6 +33,16 @@ if (isset($_POST["register"])) {
     $emailAddress = (mysqli_real_escape_string($con, validate($_POST["emailAddress"])));
     $phoneNumber = (mysqli_real_escape_string($con, validate($_POST["phoneNumber"])));
     $password = (mysqli_real_escape_string($con, validate($_POST["password"])));
+
+    // check if email or phone number already exist
+    $sql = "SELECT * FROM `user` WHERE email = '$emailAddress' OR phone = '$phoneNumber';";
+    $res = mysqli_query($con, $sql);
+    if (mysqli_num_rows($res) > 0) {
+        $_SESSION["msg"] = 'Email or phone number already exist';
+        header("location: ../register.php");
+        exit();
+    }
+
     $sql = "INSERT INTO `user`(`name`, `email`, `phone`, `password`, `role`) VALUES ('$fullname','$emailAddress','$phoneNumber','$password','0')";
     $res = mysqli_query($con, $sql);
     if ($res) {

@@ -22,6 +22,15 @@ if (isset($_POST["updateProfile"])) {
         exit();
     }
 
+    // check if regNo already exist
+    $sql = "SELECT * FROM `user` WHERE regNo = '$regNumber' AND id != '$id';";
+    $res = mysqli_query($con, $sql);
+    if (mysqli_num_rows($res) > 0) {
+        $_SESSION["msg"] = 'Someone already registered with this registration number';
+        header("location: ../profile.php");
+        exit();
+    }
+
     $sql = "UPDATE `user` SET `regNo`='$regNumber',`faculty`='$faculty',`department`='$department' WHERE id = '$id'";
     $res = mysqli_query($con, $sql);
     if ($res) {
