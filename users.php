@@ -34,7 +34,7 @@ checklogin();
           $id = $_SESSION["token"];
           $role = $_SESSION["role"];
 
-          $sql = "SELECT * FROM `user` WHERE role=0";
+          $sql = "SELECT * FROM `user` ORDER BY `name` ASC, regNo ASC;";
           $result = mysqli_query($con, $sql);
           $num = mysqli_num_rows($result);
           ?>
@@ -58,7 +58,6 @@ checklogin();
                     </tr>
                   </thead>
                   <tbody>
-
                     <?php
                     if ($num <= 0) {
                       echo "<tr><td colspan='6' class='text-center text-muted py-4 h3'>
@@ -96,5 +95,4 @@ checklogin();
   <script src="./static/js/app.min.js"></script>
   <script src="./static/libs/simplebar/dist/simplebar.js"></script>
 </body>
-
 </html>
