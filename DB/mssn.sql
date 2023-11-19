@@ -34,7 +34,7 @@ CREATE TABLE `item_table` (
   `itemName` varchar(250) NOT NULL,
   `itemType` varchar(250) NOT NULL,
   `itemQuantity` varchar(11) NOT NULL,
-  `itemImage` varchar(30) NOT NULL,
+  `itemImage` varchar(255) NOT NULL,
   `itemDescription` varchar(250) NOT NULL,
   `checkInBy` int(11) DEFAULT NULL,
   `checkInDate` timestamp NULL DEFAULT NULL,

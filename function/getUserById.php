@@ -7,8 +7,8 @@
         return $userDataById;
     }
     
-    $userId = 5;
-    $user = getUserById($userId, $con);
+    // $userId = 5;
+    // $user = getUserById($userId, $con);
 
-    echo $user["email"];
+    // echo $user["email"];
 ?>

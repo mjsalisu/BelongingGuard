@@ -3,7 +3,7 @@ error_reporting(0);
 include("./dbcon.php");
 include("../function/random.php");
 include("../function/validate.php");
-
+include("../function/sendEmail.php");
 session_start();
 // SIGNIN
 
@@ -34,7 +34,7 @@ if (isset($_POST["register"])) {
     $fullname = mysqli_real_escape_string($con, validate($_POST["fullname"]));
     $emailAddress = (mysqli_real_escape_string($con, validate($_POST["emailAddress"])));
     $phoneNumber = (mysqli_real_escape_string($con, validate($_POST["phoneNumber"])));
-    $password = (mysqli_real_escape_string($con, validate($_POST["password"])));
+    $password = (mysqli_real_escape_string($con, validate($_POST["password"])));    
 
     // check if email or phone number already exist
     $sql = "SELECT * FROM `user` WHERE email = '$emailAddress' OR phone = '$phoneNumber';";

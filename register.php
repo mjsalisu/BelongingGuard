@@ -40,7 +40,7 @@ error_reporting(0);
                   </div>
                   <div class="mb-3">
                     <label class="form-label">Phone number</label>
-                    <input type="text" class="form-control" name="phoneNumber" placeholder="Enter your phone number" required />
+                    <input type="text" class="form-control" name="phoneNumber" placeholder="Enter your phone number" pattern="[0-9]{11}" required />
                   </div>
                   <div class="mb-4">
                     <label class="form-label">Password</label>
