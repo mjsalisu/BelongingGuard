@@ -69,8 +69,13 @@ else if (isset($_POST["approveItem"]) || isset($_POST["rejectItem"])) {
     $sql = "UPDATE `item_table` SET `itemName`='$itemName',`itemType`='$itemType',`itemQuantity`='$itemQuantity',`itemDescription`='$itemDescription',`checkInBy`='$checkInById',`checkInDate`='$checkInDate',`checkInNote`='$checkInNote',`status`=$status WHERE trackId='$trackingId'";
     $res = mysqli_query($con, $sql);
     if ($res) {
-        $_SESSION["msg"] = '
-        Item has been ' . ($status == 2 ? '<b>approved</b>' : 'rejected') . ' successfully';
+        if ($status == 2) {
+            sendItemApprovalEmail($_SESSION["email"], $_SESSION["name"], $trackingId);
+            $_SESSION["msg"] = 'Item has been approved successfully';
+        } else {
+            sendItemRejectionEmail($_SESSION["email"], $_SESSION["name"], $trackingId);
+            $_SESSION["msg"] = 'Item has been rejected successfully';
+        }
         header("location: ../checkin.php");
     } else {
         $_SESSION["msg"] = '
@@ -97,6 +102,7 @@ else if (isset($_POST["checkOutItem"])) {
     $sql = "UPDATE `item_table` SET `checkOutBy`='$checkOutById',`checkOutDate`='$checkOutDate',`checkOutNote`='$checkOutNote',`status`=$status WHERE trackId='$trackingId'";
     $res = mysqli_query($con, $sql);
     if ($res) {
+        sendIetmCheckOutEmail($_SESSION["email"], $_SESSION["name"], $trackingId);
         $_SESSION["msg"] = '
         Item has been check-out for retrieval successful';
         header("location: ../checkout.php");
