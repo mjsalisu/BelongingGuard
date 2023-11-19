@@ -15,8 +15,8 @@ if ($_SESSION["role"] == "0") {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>View Check-In | Belonging Guard MSSN BUK</title>
-    <link rel="icon" href="static/images/logos/mssn.png" type="image/x-icon" />
-    <link rel="stylesheet" href="static/css/styles.min.css" />
+    <link rel="icon" href="./static/images/logos/mssn.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./static/css/styles.min.css" />
   </head>
 
   <body>
@@ -119,10 +119,10 @@ if ($_SESSION["role"] == "0") {
         </div>
       </div>
     </div>
-    <script src="static/libs/jquery/dist/jquery.min.js"></script>
-    <script src="static/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="static/js/sidebarmenu.js"></script>
-    <script src="static/js/app.min.js"></script>
-    <script src="static/libs/simplebar/dist/simplebar.js"></script>
+    <script src="./static/libs/jquery/dist/jquery.min.js"></script>
+    <script src="./static/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./static/js/sidebarmenu.js"></script>
+    <script src="./static/js/app.min.js"></script>
+    <script src="./static/libs/simplebar/dist/simplebar.js"></script>
   </body>
 </html>

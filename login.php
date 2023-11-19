@@ -9,8 +9,12 @@ error_reporting(0);
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Login | Belonging Guard MSSN BUK</title>
-  <link rel="icon" href="static/images/logos/mssn.png" type="image/x-icon" />
-  <link rel="stylesheet" href="static/css/styles.min.css" />
+  <link rel="icon" href="./static/images/logos/mssn.png" type="image/x-icon" />
+  <link rel="stylesheet" href="./static/css/styles.min.css" />
+  <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-3.5.1.js"
+    ></script>
 </head>
 
 <body>
@@ -63,7 +67,7 @@ error_reporting(0);
       </div>
     </div>
   </div>
-  <script src="./static/libs/jquery/dist/jquery.min.js"></script>
+  
   <script src="./static/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="./static/js/app.min.js"></script>
 </body>

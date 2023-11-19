@@ -13,8 +13,17 @@ checklogin();
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Items Logs | Belonging Guard MSSN BUK</title>
-  <link rel="icon" href="static/images/logos/mssn.png" type="image/x-icon" />
-  <link rel="stylesheet" href="static/css/styles.min.css" />
+  <link rel="icon" href="./static/images/logos/mssn.png" type="image/x-icon" />
+  <link rel="stylesheet" href="./static/css/styles.min.css" />
+  <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-3.5.1.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css"
+    />
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 </head>
 
 <body>
@@ -52,7 +61,7 @@ checklogin();
             </p>
             <div class="card">
               <div class="table-responsive-sm p-4">
-                <table class="table table-sm table-hover">
+                <table class="table table-sm table-hover" id="dataTableID">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -114,7 +123,7 @@ checklogin();
       </div>
     </div>
   </div>
-  <script src="./static/libs/jquery/dist/jquery.min.js"></script>
+  
   <script src="./static/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="./static/js/sidebarmenu.js"></script>
   <script src="./static/js/app.min.js"></script>
