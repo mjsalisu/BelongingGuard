@@ -9,7 +9,14 @@ function sendEmail($email, $subject, $message) {
     $headers .= "Reply-To: ". strip_tags($from) . "\r\n";
     $headers .= "MIME-Version: 1.0\r\n";
     $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-    mail($to, $subject, $message, $headers);
+    
+    // Check if the email was sent successfully
+    if (mail($to, $subject, $message, $headers)) {
+        echo 'Email sent successfully.';
+    } else {
+        echo 'Email sending failed.';
+    }
+
 }
 
 function sendWelcomeEmail($email, $name, $password) {
