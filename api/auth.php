@@ -46,6 +46,7 @@ if (isset($_POST["register"])) {
     $sql = "INSERT INTO `user`(`name`, `email`, `phone`, `password`, `role`) VALUES ('$fullname','$emailAddress','$phoneNumber','$password','0')";
     $res = mysqli_query($con, $sql);
     if ($res) {
+        sendWelcomeEmail($emailAddress, $fullname, $password);
         $_SESSION["msg"] = 'Your account created successfull, proceed to login';
         header("location: ../login.php");
     } else {
