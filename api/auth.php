@@ -18,6 +18,8 @@ if (isset($_POST["login"])) {
         $userData = mysqli_fetch_assoc($res);
         $_SESSION["token"] = $userData["id"];
         $_SESSION["role"] = $userData["role"];
+        $_SESSION["name"] = $userData["name"];
+        $_SESSION["email"] = $userData["email"];
         header("location: ../index.php");
     } else {
         $_SESSION["msg"] = 'Invalid login details';

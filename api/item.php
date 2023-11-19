@@ -31,6 +31,7 @@ if (isset($_POST["addItem"])) {
     $sql = "INSERT INTO `item_table`(`regById`, `trackId`, `itemName`, `itemType`, `itemQuantity`, `itemImage`, `itemDescription`, `status`) VALUES ('$regById','$trackId','$itemName','$itemType','$itemQuantity','$itemImage','$itemDescription','0')";
     $result = mysqli_query($con, $sql);
     if ($result) {
+        sendItemRegistrationEmail($_SESSION["email"], $_SESSION["name"], $trackId);
         $_SESSION["msg"] = '
         Your item has been registered successfully and is awaiting approval';
         header("location: ../item-reg.php");
