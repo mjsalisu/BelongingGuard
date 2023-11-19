@@ -120,6 +120,10 @@ if ($_SESSION["role"] == "0") {
                     <button type="submit" class="btn btn-outline-danger" name="rejectItem">
                       Rejected
                     </button>
+                    <hr>
+                     <p class="text-center text-muted">
+                      Reject the item if the picture is unclear, blurred, or does not clearly depict the brought item.</p>
+                    <img src="./uploads/<?php echo $itemData["itemImage"];?>" class="rounded mx-auto d-block img-fluid" alt="Item image">
                   </div>
                 </form>
               </div>
