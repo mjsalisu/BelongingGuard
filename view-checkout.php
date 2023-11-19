@@ -1,6 +1,7 @@
 <?php
 error_reporting(0);
 include("./function/checkLogin.php");
+include("./function/getUserById.php");
 include("./api/dbcon.php");
 checklogin();
 
@@ -66,10 +67,17 @@ if ($_SESSION["role"] == "0") {
               <h5 class="card-title fw-semibold mb-4">
                 Item Check-Out and Collection
               </h5>
+
+              <?php 
+                $userId = $itemData["regById"];
+                $user = getUserById($userId, $con);
+              ?>
               <div class="container">
                <form action="./api/item.php" method="post">
                   <div id="">
                     <input type="hidden" name="trackId" value="<?php echo $itemData["trackId"];?>" readonly/>
+                    <input type="hidden" name="email" value="<?php echo $user["email"];?>" readonly/>
+                    <input type="hidden" name="name" value="<?php echo $user["name"];?>" readonly/>
                     <div class="row">
                       <div class="col-sm">
                         <div class="mb-3">

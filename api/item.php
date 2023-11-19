@@ -4,6 +4,7 @@ error_reporting(0);
 include("./dbcon.php");
 include("../function/random.php");
 include("../function/validate.php");
+include("../function/sendEmail.php");
 session_start();
 $uploads_dir = '../uploads';
 
@@ -31,7 +32,7 @@ if (isset($_POST["addItem"])) {
     $sql = "INSERT INTO `item_table`(`regById`, `trackId`, `itemName`, `itemType`, `itemQuantity`, `itemImage`, `itemDescription`, `status`) VALUES ('$regById','$trackId','$itemName','$itemType','$itemQuantity','$itemImage','$itemDescription','0')";
     $result = mysqli_query($con, $sql);
     if ($result) {
-        // sendItemRegistrationEmail($_SESSION["email"], $_SESSION["name"], $trackId);
+        sendItemRegistrationEmail($_SESSION["email"], $_SESSION["name"], $trackId);
         $_SESSION["msg"] = '
         Your item has been registered successfully and is awaiting approval';
         header("location: ../item-reg.php");
@@ -46,6 +47,9 @@ if (isset($_POST["addItem"])) {
 else if (isset($_POST["approveItem"]) || isset($_POST["rejectItem"])) {
     $checkInById = $_SESSION["token"];
     $trackingId = mysqli_real_escape_string($con, validate($_POST["trackId"]));
+    $email = mysqli_real_escape_string($con, validate($_POST["email"]));
+    $name = mysqli_real_escape_string($con, validate($_POST["name"]));
+
     $itemName = mysqli_real_escape_string($con, validate($_POST["itemName"]));
     $itemType = mysqli_real_escape_string($con, validate($_POST["itemType"]));
     $itemQuantity = mysqli_real_escape_string($con, validate($_POST["itemQuantity"]));
@@ -70,10 +74,10 @@ else if (isset($_POST["approveItem"]) || isset($_POST["rejectItem"])) {
     $res = mysqli_query($con, $sql);
     if ($res) {
         if ($status == 2) {
-            // sendItemApprovalEmail($_SESSION["email"], $_SESSION["name"], $trackingId);
+            sendItemApprovalEmail($email, $name, $trackingId);
             $_SESSION["msg"] = 'Item has been approved successfully';
         } else {
-            // sendItemRejectionEmail($_SESSION["email"], $_SESSION["name"], $trackingId);
+            sendItemRejectionEmail($email, $name, $trackingId);
             $_SESSION["msg"] = 'Item has been rejected successfully';
         }
         header("location: ../checkin.php");
@@ -88,6 +92,9 @@ else if (isset($_POST["approveItem"]) || isset($_POST["rejectItem"])) {
 else if (isset($_POST["checkOutItem"])) {
     $checkOutById = $_SESSION["token"];
     $trackingId = mysqli_real_escape_string($con, validate($_POST["trackId"]));
+    $email = mysqli_real_escape_string($con, validate($_POST["email"]));
+    $name = mysqli_real_escape_string($con, validate($_POST["name"]));
+
     $checkOutDate = $timestamp;
     $checkOutNote = mysqli_real_escape_string($con, validate($_POST["checkOutNote"]));
     $status = 3; // checkOutItem
@@ -102,7 +109,7 @@ else if (isset($_POST["checkOutItem"])) {
     $sql = "UPDATE `item_table` SET `checkOutBy`='$checkOutById',`checkOutDate`='$checkOutDate',`checkOutNote`='$checkOutNote',`status`=$status WHERE trackId='$trackingId'";
     $res = mysqli_query($con, $sql);
     if ($res) {
-        // sendIetmCheckOutEmail($_SESSION["email"], $_SESSION["name"], $trackingId);
+        sendIetmCheckOutEmail($email, $name, $trackingId);
         $_SESSION["msg"] = '
         Item has been check-out for retrieval successful';
         header("location: ../checkout.php");
